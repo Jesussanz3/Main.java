@@ -1,6 +1,5 @@
-public class Hub {
+public class Hub{
+    container[][] c=new container[10][12];
     public Hub() {
     }
-
-    container[][] c=new container[12][10];
 }
