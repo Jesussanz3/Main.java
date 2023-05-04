@@ -63,6 +63,8 @@ public class Port extends JFrame implements ItemListener {
     private JLabel tfDescription_;
     private JTextField tfErrors;
     private JTextField tfNumberHub;
+    private JButton tfChecked;
+    private JTextField tfTextChecked;
     int column;
     int IDNumber;
     int weight;
@@ -267,8 +269,22 @@ public class Port extends JFrame implements ItemListener {
                 tfCountryNumber.setText(String.valueOf(counter));
             }
         });
+        tfChecked.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try{
+                weight=Integer.parseInt(tfWeight.getText()); //To know the weight
+                int hub=Integer.parseInt(tfNumberHub.getText()); //To know the hub
+                tfTextChecked.setText(checked(weight, hub)); //Instead of in a new window (I didn't have time to do it), I have put it in a new text field
+                }
+                catch(NumberFormatException e){ //If you don't put the weight or the hub, or if you put it wrong
+                    tfErrors.setText("Error. Wrong number of weight ir hub");
+                }
+            }
+        });
     }
     public String checked(int weight, int hub){
+        String text=""; //This text will be returned with the information of the required containers
         int lastWeight=0; //The weight of the last container
             for (int i=0; i<10; i++){
                 for (int j=0; j<12; j++){
@@ -278,7 +294,6 @@ public class Port extends JFrame implements ItemListener {
                     }
                 }
             }
-            String text=""; //This text will be returned with the information of the required containers
         for (int i=0; i<10; i++){
             for (int j=0; j<12; j++){
                 if((H[hub].c[i][j].getIDNumber()!=0)&&(H[hub].c[i][j].getWeight()<=lastWeight)) { //I make sure that ID number is not 0 (that there is a container) and I compare the weights
