@@ -268,6 +268,28 @@ public class Port extends JFrame implements ItemListener {
             }
         });
     }
+    public String checked(int weight, int hub){
+        int lastWeight=0; //The weight of the last container
+            for (int i=0; i<10; i++){
+                for (int j=0; j<12; j++){
+                    if((H[hub].c[i][j].getIDNumber()!=0)&&(H[hub].c[i][j].getWeight()<=weight)) { //I make sure that ID number is not 0 (that there is a container) and I compare the weights
+                        H[hub].c[i][j].setInspected(true); //mark as checked
+                        lastWeight=H[hub].c[i][j].getWeight(); //With this, I have the weight of the last container I will find
+                    }
+                }
+            }
+            String text=""; //This text will be returned with the information of the required containers
+        for (int i=0; i<10; i++){
+            for (int j=0; j<12; j++){
+                if((H[hub].c[i][j].getIDNumber()!=0)&&(H[hub].c[i][j].getWeight()<=lastWeight)) { //I make sure that ID number is not 0 (that there is a container) and I compare the weights
+                    text=text+"Container ("+i+", "+j+"). ID Number: "+H[hub].c[i][j].getIDNumber()+". Sender: "
+                    +H[hub].c[i][j].getSender()+". Weight: "+H[hub].c[i][j].getWeight()+". Inspected: "
+                    +H[hub].c[i][j].isInspected()+".  "; //I add the information of that container to the text
+                }
+            }
+        }
+        return text;
+    }
     boolean repeated (int IDNumber){
         int t=0;
         for (int a=0; a<3; a++){
